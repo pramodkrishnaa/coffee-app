@@ -120,8 +120,10 @@ const Auth = () => {
           navigate("/");
         }
       } else if (mode === "forgot") {
+        // Use production URL from env or fallback to window.location.origin
+        const siteUrl = import.meta.env.VITE_SITE_URL || window.location.origin;
         const { error } = await supabase.auth.resetPasswordForEmail(email, {
-          redirectTo: `${window.location.origin}/auth`,
+          redirectTo: `${siteUrl}/auth`,
         });
         if (error) {
           toast({
